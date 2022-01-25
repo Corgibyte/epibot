@@ -2,13 +2,14 @@ using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
+using EpiBot.Modules;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace EpiBot
+namespace EpiBot.Services
 {
   public class StartupService
   {
@@ -42,6 +43,8 @@ namespace EpiBot
         throw new Exception("Token error");
       }
 
+      _discord.Ready += ReadyAsync;
+
       // login and launch bot
       await _discord.LoginAsync(TokenType.Bot, discordToken);
       await _discord.StartAsync();
@@ -49,7 +52,16 @@ namespace EpiBot
       // register all text command modules
       await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
       // register all interaction (i.e. slash command) modules
-      await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
+      // await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
+      await _interactions.AddModuleAsync<SlashCommands>(_provider);
+    }
+
+    private async Task ReadyAsync()
+    {
+      //testing: setting command on specific guild
+      await _interactions.RegisterCommandsToGuildAsync(710321745286004786);
+      //deployment: use below to set command globally (anywhere the bot is used)
+      // await _interactions.RegisterCommandsGloballyAsync(true);
     }
   }
 }
