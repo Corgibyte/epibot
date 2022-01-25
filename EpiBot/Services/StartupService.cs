@@ -2,7 +2,6 @@ using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
-using EpiBot.Modules;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -52,16 +51,13 @@ namespace EpiBot.Services
       // register all text command modules
       await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
       // register all interaction (i.e. slash command) modules
-      // await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
-      await _interactions.AddModuleAsync<SlashCommands>(_provider);
+      await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
     }
 
     private async Task ReadyAsync()
     {
-      Console.WriteLine("before RegisterCommands");
       //testing: setting command on specific guild - below arg may be got programatically?
-      await _interactions.RegisterCommandsToGuildAsync(710321745286004786);
-      Console.WriteLine("after RegisterCommands");
+      await _interactions.RegisterCommandsToGuildAsync(935181165755764826);
       //deployment: use below to set command globally (anywhere the bot is used)
       // await _interactions.RegisterCommandsGloballyAsync(true);
     }
