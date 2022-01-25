@@ -1,5 +1,6 @@
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +48,7 @@ namespace EpiBot
         LogLevel = LogSeverity.Verbose     // Tell the logger to give Verbose amount of info
         // DefaultRunMode = RunMode.Async,     // Force all commands to run async by default
       }))
+      .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
       .AddSingleton<CommandHandler>()         // Add the command handler to the collection
       .AddSingleton<StartupService>()         // Add startupservice to the collection
       .AddSingleton<LoggingService>()         // Add loggingservice to the collection
