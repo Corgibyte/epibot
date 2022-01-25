@@ -1,8 +1,8 @@
 namespace EpiBot.Models
 {
-  public class GitHubTag
+  public class Byline
   {
-    public int GitHubTagId { get; set; }
+    public int BylineId { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }
 

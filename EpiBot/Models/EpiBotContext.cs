@@ -4,15 +4,17 @@ namespace EpiBot.Models
 {
   public class EpiBotContext : DbContext
   {
-    public DbSet<GitHubTag> GitHubTags { get; set; }
+    public DbSet<Byline> GitHubTags { get; set; }
 
     public EpiBotContext(DbContextOptions options) : base(options) { }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      builder.Entity<GitHubTag>()
+      base.OnModelCreating(builder);
+      builder.Entity<Byline>()
         .HasData(
-          new GitHubTag { GitHubTagId = 1, Name = "Hannah Young", Email = "hannah@corgibyte.com" },
-          new GitHubTag { GitHubTagId = 2, Name = "Aaron Minnick", Email = "abminnick@gmail.com" }
+          new Byline { BylineId = 1, Name = "Hannah Young", Email = "hannah@corgibyte.com" },
+          new Byline { BylineId = 2, Name = "Aaron Minnick", Email = "abminnick@gmail.com" }
         );
     }
   }
