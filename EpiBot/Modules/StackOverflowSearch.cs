@@ -10,14 +10,14 @@ namespace EpiBot.Modules
 {
   public class StackOverflowSearch : InteractionModuleBase<SocketInteractionContext>
   {
-    [SlashCommand("stackoverflow", "search for a question on stack overflow")]
-    public async Task Search(string question, string sort = "activity")
+    [SlashCommand("stackoverflow", "Search for a question on Stackoverflow.")]
+    public async Task Search(string question)
     {
       RestClient client = new RestClient("https://api.stackexchange.com/2.3/");
-      RestRequest request = new RestRequest($"search?page=1&pagesize=5&order=desc&sort={sort}&intitle={question}&site=stackoverflow", Method.Get);
+      RestRequest request = new RestRequest($"search?page=1&pagesize=5&order=desc&intitle={question}&site=stackoverflow", Method.Get);
       RestResponse response = await client.ExecuteGetAsync(request);
       await RespondAsync(
-        text: $"Here are some stackoverflow results similar to \"{question}\"",
+        text: $"Here are some stackoverflow results similar to \"{question}\":",
         embed: ParseToEmbed(response.Content));
     }
 
@@ -30,12 +30,12 @@ namespace EpiBot.Modules
       {
         foreach(var item in parsed["items"])
         {
-          embed.AddField("test", $"[{item["title"]}]({item["link"]})");
+          embed.AddField("Result:", $"[{item["title"]}]({item["link"]})");
         }
       }
       else
       {
-        embed.AddField("test", "no results");
+        embed.AddField("No results found.", "*Try using a less specific question* :)");
       }
       return embed.Build();
     }
