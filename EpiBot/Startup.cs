@@ -2,7 +2,9 @@ using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
+using EpiBot.Models;
 using EpiBot.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,7 +18,9 @@ namespace EpiBot
 
     public Startup(string[] args)
     {
-      var builder = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory);
+      var builder = new ConfigurationBuilder()
+        .SetBasePath(AppContext.BaseDirectory)
+        .AddJsonFile(path: "appsettings.json");
       Configuration = builder.Build();
     }
 
@@ -39,6 +43,8 @@ namespace EpiBot
 
     private void ConfigureServices(IServiceCollection services)
     {
+      services.AddDbContext<EpiBotContext>(opt =>
+                opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
       services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
       {
         LogLevel = LogSeverity.Verbose,
