@@ -53,7 +53,7 @@ namespace EpiBot.Modules
           embeds.Add(builder);
         }
       }
-
+      //Add slash commands to embeds
       foreach (Discord.Interactions.SlashCommandInfo slashInfo in _provider.GetService<InteractionService>().SlashCommands)
       {
         string description = slashInfo.Description ?? "*No description given*";
@@ -72,14 +72,33 @@ namespace EpiBot.Modules
         builder = builder.WithTitle($"`/{slashWithParams}`");
         embeds.Add(builder);
       }
-
-      Embed[] embedArray = new Embed[embeds.Count];
-      for (int i = 0; i < embeds.Count; i++)
+      //send out embeds
+      Embed[][] embedMatrix = new Embed[(embeds.Count / 10) + 1][];
+      for (int i = 0; i < embedMatrix.Length; i++)
       {
-        embedArray[i] = embeds[i].Build();
+        int arrayLength;
+        if (i < embedMatrix.Length - 1)
+        {
+          arrayLength = 10;
+        }
+        else
+        {
+          arrayLength = embeds.Count % 10;
+        }
+        embedMatrix[i] = new Embed[arrayLength];
       }
-      //Reply with each embed
-      await ReplyAsync("", embeds: embedArray);
+      for (int i = 0; i < embedMatrix.Length; i++)
+      {
+        for (int j = 0; j < embedMatrix[i].Length; j++)
+        {
+          embedMatrix[i][j] = embeds[(i * 10) + j].Build();
+        }
+      }
+      //Reply with each embed array
+      foreach (Embed[] embedArray in embedMatrix)
+      {
+        await ReplyAsync("", embeds: embedArray);
+      }
     }
   }
 }
