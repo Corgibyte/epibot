@@ -18,7 +18,15 @@ namespace EpiBot.Modules
     }
 
     [SlashCommand("byline-register", "register new byline for user")]
+<<<<<<< Updated upstream
     public async Task BylineRegister(string name, string email)
+=======
+    public async Task BylineRegister(
+      [Summary("name", "name for byline")]
+      string name,
+      [Summary("email", "github email address")]
+      string email)
+>>>>>>> Stashed changes
     {
       _db.Bylines.Add(new Byline { Name = name, Email = email });
       var result = _db.SaveChanges();
@@ -32,8 +40,16 @@ namespace EpiBot.Modules
       }
     }
 
-    [SlashCommand("byline-generate", "create byline with provided names")]
-    public async Task BylineGenerate(string name1, string name2 = "", string name3 = "", string name4 = "")
+    [SlashCommand("byline-generate", "create byline")]
+    public async Task BylineGenerate(
+      [Summary("name1", "first name")]
+      string name1,
+      [Summary("name1", "second name")]
+      string name2 = "",
+      [Summary("name1", "third name")]
+      string name3 = "",
+      [Summary("name1", "fourth name")]
+      string name4 = "")
     {
       List<Byline> bylines = new List<Byline>();
       bylines.Add(FindClosestByline(name1));
