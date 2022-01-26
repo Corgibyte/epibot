@@ -4,7 +4,7 @@ namespace EpiBot.Models
 {
   public class EpiBotContext : DbContext
   {
-    public DbSet<Byline> GitHubTags { get; set; }
+    public DbSet<Byline> Bylines { get; set; }
 
     public EpiBotContext(DbContextOptions options) : base(options) { }
 

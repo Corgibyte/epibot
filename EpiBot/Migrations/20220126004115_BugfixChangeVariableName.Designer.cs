@@ -2,14 +2,16 @@
 using EpiBot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Epibot.Migrations
 {
     [DbContext(typeof(EpiBotContext))]
-    partial class EpiBotContextModelSnapshot : ModelSnapshot
+    [Migration("20220126004115_BugfixChangeVariableName")]
+    partial class BugfixChangeVariableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
