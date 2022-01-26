@@ -1,6 +1,9 @@
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,21 +13,23 @@ namespace EpiBot.Modules
   {
     private readonly CommandService _service;
     private readonly IConfigurationRoot _config;
+    private readonly IServiceProvider _provider;
 
-    public HelpModule(CommandService service, IConfigurationRoot config)
+    public HelpModule(CommandService service, IConfigurationRoot config, IServiceProvider provider)
     {
       _service = service;
       _config = config;
+      _provider = provider;
     }
 
     [Command("help")]
-    [Summary("Get list of all commands")]
+    [Discord.Commands.Summary("get list of all commands")]
     public async Task HelpAsync()
     {
-      string prefix = _config["prefix"];
+      string prefix = _config["Prefix"];
 
       List<EmbedBuilder> embeds = new List<EmbedBuilder>();
-      foreach (ModuleInfo module in _service.Modules)
+      foreach (Discord.Commands.ModuleInfo module in _service.Modules)
       {
         foreach (CommandInfo cmd in module.Commands)
         {
@@ -44,16 +49,37 @@ namespace EpiBot.Modules
             cmdWithParams += $" {param.Name}";
             builder.AddField(param.Name, paramSummary);
           }
-          builder = builder.WithTitle($"`{cmdWithParams}`");
+          builder = builder.WithTitle($"`{prefix}{cmdWithParams}`");
           embeds.Add(builder);
         }
       }
 
-      //Reply with each embed
-      foreach (EmbedBuilder embed in embeds)
+      foreach (Discord.Interactions.SlashCommandInfo slashInfo in _provider.GetService<InteractionService>().SlashCommands)
       {
-        await ReplyAsync("", false, embed.Build());
+        string description = slashInfo.Description ?? "*No description given*";
+
+        var builder = new EmbedBuilder()
+          .WithAuthor(Context.Client.CurrentUser)
+          .WithColor(Color.Green)
+          .WithDescription($"*{description}*");
+        string slashWithParams = slashInfo.Name;
+        foreach (SlashCommandParameterInfo param in slashInfo.Parameters)
+        {
+          string paramSummary = param.Description ?? "*No description given*";
+          slashWithParams += $" {param.Name}";
+          builder.AddField(param.Name, paramSummary);
+        }
+        builder = builder.WithTitle($"`/{slashWithParams}`");
+        embeds.Add(builder);
       }
+
+      Embed[] embedArray = new Embed[embeds.Count];
+      for (int i = 0; i < embeds.Count; i++)
+      {
+        embedArray[i] = embeds[i].Build();
+      }
+      //Reply with each embed
+      await ReplyAsync("", embeds: embedArray);
     }
   }
 }
