@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace EpiBot.Modules
 {
-  public class BylineHelper : InteractionModuleBase<SocketInteractionContext>
+  public class BylineModule : InteractionModuleBase<SocketInteractionContext>
   {
     private readonly EpiBotContext _db;
 
-    public BylineHelper(IServiceProvider services)
+    public BylineModule(IServiceProvider services)
     {
       _db = services.GetRequiredService<EpiBotContext>();
     }
