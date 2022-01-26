@@ -19,9 +19,9 @@ namespace EpiBot.Modules
 
     [SlashCommand("byline-register", "register new byline for user")]
     public async Task BylineRegister(
-      [Summary("Name for byline that will appear in commits")]
+      [Summary("name", "name for byline")]
       string name,
-      [Summary("github email address")]
+      [Summary("email", "github email address")]
       string email)
     {
       _db.Bylines.Add(new Byline { Name = name, Email = email });
@@ -36,15 +36,15 @@ namespace EpiBot.Modules
       }
     }
 
-    [SlashCommand("byline-generate", "create byline with provided names")]
+    [SlashCommand("byline-generate", "create byline")]
     public async Task BylineGenerate(
-      [Summary("First byline name")]
+      [Summary("name1", "first name")]
       string name1,
-      [Summary("Second byline name")]
+      [Summary("name1", "second name")]
       string name2 = "",
-      [Summary("Third byline name")]
+      [Summary("name1", "third name")]
       string name3 = "",
-      [Summary("Fourth byline name")]
+      [Summary("name1", "fourth name")]
       string name4 = "")
     {
       List<Byline> bylines = new List<Byline>();
