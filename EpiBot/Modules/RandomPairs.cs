@@ -1,4 +1,5 @@
 using Discord.Interactions;
+using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
@@ -7,21 +8,33 @@ namespace EpiBot.Modules
 {
   public class RandomPairs : InteractionModuleBase<SocketInteractionContext>
   {
-    private Random rand;
+    private Random _rand;
+    private DiscordSocketClient _discord;
+
     public RandomPairs(IServiceProvider services)
     {
-      rand = services.GetRequiredService<Random>();
+      _rand = services.GetRequiredService<Random>();
+      _discord = services.GetRequiredService<DiscordSocketClient>();
+      //listen for button click
+      _discord.ButtonExecuted += RepeatButtonHandler;
     }
 
     [SlashCommand("pairs", "Make random pairs from a list of space-separated names")]
     public async Task Pairs(string listOfNames)
     {
-      var embed = new Discord.EmbedBuilder();
-      foreach(string s in MakePairs(listOfNames.Split()))
+      var button = new Discord.ComponentBuilder()
+        .WithButton("Repeat Shuffle", "shuffle");
+      await RespondAsync(text: MakeContentText(MakePairs(listOfNames.Split())), components: button.Build());
+    }
+
+    private string MakeContentText(string[] pairs)
+    {
+      string text = "";
+      foreach(string s in pairs)
       {
-        embed.AddField("Pair:", s);
+        text += s + "\n";
       }
-      await RespondAsync(embed: embed.Build());
+      return text;
     }
 
     private string[] MakePairs(string[] names)
@@ -30,7 +43,7 @@ namespace EpiBot.Modules
       int i = names.Length;
       while (i > 1)
       {
-        int j = rand.Next(i--);
+        int j = _rand.Next(i--);
         string temp = names[i];
         names[i] = names[j];
         names[j] = temp;
@@ -46,6 +59,24 @@ namespace EpiBot.Modules
       if (names.Length % 2 == 1) pairs[0] += ", " + names[names.Length-1];
 
       return pairs;
+    }
+
+    private async Task RepeatButtonHandler(SocketMessageComponent comp)
+    {
+      if (comp.Data.CustomId == "shuffle")
+      {
+        await comp.UpdateAsync(x => 
+        {
+        x.Content = MakeContentText(MakePairs(ParseNamesFromContent(comp.Message.Content)));
+        });
+      }
+    }
+
+    private string[] ParseNamesFromContent(string content)
+    {
+      content = content.Replace(",", "");
+      string[] names = content.Split();
+      return names;
     }
   }
 }
