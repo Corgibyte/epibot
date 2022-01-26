@@ -18,15 +18,11 @@ namespace EpiBot.Modules
     }
 
     [SlashCommand("byline-register", "register new byline for user")]
-<<<<<<< Updated upstream
-    public async Task BylineRegister(string name, string email)
-=======
     public async Task BylineRegister(
       [Summary("name", "name for byline")]
       string name,
       [Summary("email", "github email address")]
       string email)
->>>>>>> Stashed changes
     {
       _db.Bylines.Add(new Byline { Name = name, Email = email });
       var result = _db.SaveChanges();
