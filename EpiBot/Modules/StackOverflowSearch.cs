@@ -5,7 +5,6 @@ using RestSharp;
 using System;
 using System.Threading.Tasks;
 
-
 namespace EpiBot.Modules
 {
   public class StackOverflowSearch : InteractionModuleBase<SocketInteractionContext>
