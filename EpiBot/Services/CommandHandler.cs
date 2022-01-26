@@ -45,7 +45,7 @@ namespace EpiBot.Services
       //Creating and executing the command
       var context = new SocketCommandContext(_discord, msg);
       int argPos = 0;
-      string prefix = _config["Prefix"];
+      string prefix = "!";
       if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
       {
         var result = await _commands.ExecuteAsync(context, argPos, _provider);
