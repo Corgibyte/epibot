@@ -1,9 +1,9 @@
 using Discord.Interactions;
 using EpiBot.Models;
+using FuzzySharp;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EpiBot.Modules
@@ -36,18 +36,18 @@ namespace EpiBot.Modules
     public async Task BylineGenerate(string name1, string name2 = "", string name3 = "", string name4 = "")
     {
       List<Byline> bylines = new List<Byline>();
-      bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name.ToLower() == name1.ToLower()));
+      bylines.Add(FindClosestByline(name1));
       if (name2 != "")
       {
-        bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name2));
+        bylines.Add(FindClosestByline(name2));
       }
       if (name3 != "")
       {
-        bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name3));
+        bylines.Add(FindClosestByline(name3));
       }
       if (name4 != "")
       {
-        bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name4));
+        bylines.Add(FindClosestByline(name4));
       }
       string response = "";
       bool foundAll = true;
@@ -71,6 +71,22 @@ namespace EpiBot.Modules
       {
         await RespondAsync("One or more bylines not found: please check name spellings");
       }
+    }
+
+    private Byline FindClosestByline(string nameToFind)
+    {
+      int bestRatio = -1;
+      Byline bestByline = null;
+      foreach (Byline byline in _db.Bylines)
+      {
+        int thisRatio = Fuzz.Ratio(nameToFind, byline.Name);
+        if (thisRatio > bestRatio)
+        {
+          bestRatio = thisRatio;
+          bestByline = byline;
+        }
+      }
+      return bestByline;
     }
   }
 }
