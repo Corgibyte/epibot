@@ -40,11 +40,11 @@ namespace EpiBot.Modules
     public async Task BylineGenerate(
       [Summary("name1", "first name")]
       string name1,
-      [Summary("name1", "second name")]
+      [Summary("name2", "second name")]
       string name2 = "",
-      [Summary("name1", "third name")]
+      [Summary("name3", "third name")]
       string name3 = "",
-      [Summary("name1", "fourth name")]
+      [Summary("name4", "fourth name")]
       string name4 = "")
     {
       List<Byline> bylines = new List<Byline>();
