@@ -12,9 +12,9 @@ namespace EpiBot.Modules
     [SlashCommand("stackoverflow", "Search for a question on Stackoverflow.")]
     public async Task Search
     (
-      [Summary("Question / phrase to search for.")]
+      [Summary("question", "Question / phrase to search for.")]
       string question, 
-      [Summary("Sort method for results")]
+      [Summary("sort", "Sort method for results")]
       [Choice("activity", "activity"), Choice("votes", "votes")]
       string sort = "activity"
     )
