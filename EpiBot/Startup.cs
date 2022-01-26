@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace EpiBot
 {
@@ -19,7 +20,7 @@ namespace EpiBot
     public Startup(string[] args)
     {
       var builder = new ConfigurationBuilder()
-        .SetBasePath(AppContext.BaseDirectory)
+        .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile(path: "appsettings.json");
       Configuration = builder.Build();
     }

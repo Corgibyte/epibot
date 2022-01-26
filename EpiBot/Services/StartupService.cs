@@ -36,7 +36,7 @@ namespace EpiBot.Services
     public async Task StartAsync()
     {
       //TODO: change this
-      string discordToken = File.ReadAllText("token.txt");
+      string discordToken = _config["DiscordToken"];
       if (string.IsNullOrWhiteSpace(discordToken))
       {
         throw new Exception("Token error");
