@@ -41,7 +41,8 @@ TODO
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Port=3306;database=epibot;uid=[YOUR MYSQL USER ID];pwd=[YOUR MYSQL PASSWORD];"
-  }
+  },
+  "DiscordToken": "[YOUR DISCORD TOKEN]"
 }
 ```
 6. Back in the terminal, in the EpiBot directory build the project: `dotnet build`

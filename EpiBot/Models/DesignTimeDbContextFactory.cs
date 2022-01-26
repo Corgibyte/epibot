@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
+
+//? I'm not sure whether this is actually necessary.
+//? The program works fine without the entire file, but I'm unsure if there will be
+//? consequences with the migrations and such
 namespace EpiBot.Models
 {
   public class EpiBotContextFactory : IDesignTimeDbContextFactory<EpiBotContext>
