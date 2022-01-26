@@ -36,7 +36,7 @@ namespace EpiBot.Modules
     public async Task BylineGenerate(string name1, string name2 = "", string name3 = "", string name4 = "")
     {
       List<Byline> bylines = new List<Byline>();
-      bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name1));
+      bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name.ToLower() == name1.ToLower()));
       if (name2 != "")
       {
         bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name2));
@@ -50,12 +50,27 @@ namespace EpiBot.Modules
         bylines.Add(await _db.Bylines.FirstOrDefaultAsync(byline => byline.Name == name4));
       }
       string response = "";
+      bool foundAll = true;
       foreach (Byline byline in bylines)
       {
-        response += byline.ToString();
-        response += "\n";
+        if (byline != null)
+        {
+          response += byline.ToString();
+          response += "\n";
+        }
+        else
+        {
+          foundAll = false;
+        }
       }
-      await RespondAsync(response);
+      if (foundAll)
+      {
+        await RespondAsync(response);
+      }
+      else
+      {
+        await RespondAsync("One or more bylines not found: please check name spellings");
+      }
     }
   }
 }
