@@ -66,4 +66,4 @@ TODO
 
 ### License
 
-[Hippocratic License 3.0](https://github.com/Corgibyte/trains/blob/main/LICENSE.md), Copyright 2022 Kate Kiatsiri, Aaron Minnick, Jeff Terrell, Colt Thatcher, and Hannah Young.
+[Hippocratic License 3.0](https://github.com/Corgibyte/epibot/blob/main/LICENSE.md), Copyright 2022 Kate Kiatsiri, Aaron Minnick, Jeff Terrell, Colt Thatcher, and Hannah Young.
