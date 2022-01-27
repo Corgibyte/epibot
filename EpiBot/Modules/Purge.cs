@@ -2,14 +2,13 @@ using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
-using DiscordBot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot.Modules
+namespace EpiBot.Modules
 {
   public class PurgeModule : InteractionModuleBase<SocketInteractionContext>
   {

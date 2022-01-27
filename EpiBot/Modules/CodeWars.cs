@@ -9,7 +9,7 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
 
-namespace DiscordBot.Modules
+namespace EpiBot.Modules
 {
   public class CodeWarsModule : InteractionModuleBase<SocketInteractionContext>
   {
