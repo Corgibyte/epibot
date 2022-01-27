@@ -8,10 +8,5 @@ namespace EpiBot.Models
     public virtual DbSet<LoginReminderClient> LoginReminderClients { get; set; }
 
     public EpiBotContext(DbContextOptions options) : base(options) { }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-      base.OnModelCreating(builder);      
-    }
   }
 }
