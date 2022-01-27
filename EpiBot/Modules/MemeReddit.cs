@@ -1,5 +1,6 @@
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -8,12 +9,11 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
 
-namespace DiscordBot.Modules
+namespace EpiBot.Modules
 {
-  public class MemeReddit : ModuleBase
+  public class MemeReddit : InteractionModuleBase<SocketInteractionContext>
   {
-    [Command("meme")]
-    [Alias("reddit")]
+    [SlashCommand("meme", "Returns a random meme from a subreddit")]
     public async Task Meme(string subreddit = null)
     {
       var client = new HttpClient();
@@ -33,8 +33,7 @@ namespace DiscordBot.Modules
         .WithUrl("https://reddit.com" + post["permalink"].ToString())
         .WithFooter($"💬 {post["num_comments"]} ⬆️ {post["ups"]} ");
       var embed = builder.Build();
-      await Context.Channel.SendMessageAsync(null, false, embed);
+      await RespondAsync(embed : embed);
     }
-
   }
 }
