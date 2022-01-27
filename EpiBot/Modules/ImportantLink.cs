@@ -36,14 +36,18 @@ namespace EpiBot.Modules
     [SlashCommand("importantlink-view", "view list of important links")]
     public async Task ImportantLinkView()
     {
-      List<ImportantLink> links = new List<ImportantLink>();
+      List<ImportantLink> links = new List<ImportantLink>(_db.ImportantLinks);
+      Console.WriteLine(links);
       string response = "";
       bool foundAll = true;
       foreach (ImportantLink link in links)
       {
+        Console.WriteLine(link);
         if (link != null)
         {
-          response += link.ToString();
+          response += link.Description.ToString();
+          response += " - ";
+          response += link.Link.ToString();
           response += "\n";
         }
         else
