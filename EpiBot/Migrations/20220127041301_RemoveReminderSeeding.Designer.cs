@@ -3,14 +3,16 @@ using System;
 using EpiBot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Epibot.Migrations
 {
     [DbContext(typeof(EpiBotContext))]
-    partial class EpiBotContextModelSnapshot : ModelSnapshot
+    [Migration("20220127041301_RemoveReminderSeeding")]
+    partial class RemoveReminderSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
