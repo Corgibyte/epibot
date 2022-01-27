@@ -108,6 +108,9 @@ Slash commands are performed by entering the `/` character into the message fiel
 #### /importantlink-view
 > Retrieves and displays all important links from the database.
 
+#### /importantlink-delete Id
+> Deletes a link. Requires one parameter: Id.
+
 #### /userinfo user
 > Provides information about a user. With no parameter given it will return information about the requesting user. With optional user parameter given, will return information about the indicated user.
 

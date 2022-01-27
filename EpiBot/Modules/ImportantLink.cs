@@ -1,6 +1,6 @@
 using Discord.Interactions;
 using EpiBot.Models;
-using FuzzySharp;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -37,31 +37,38 @@ namespace EpiBot.Modules
     public async Task ImportantLinkView()
     {
       List<ImportantLink> links = new List<ImportantLink>(_db.ImportantLinks);
-      Console.WriteLine(links);
       string response = "";
-      bool foundAll = true;
-      foreach (ImportantLink link in links)
+      int order = 1;
+
+      if (links.Count == 0)
       {
-        if (link != null)
-        {
-          response += link.Description.ToString() + " - " + link.Link.ToString();
-          // response += " - ";
-          // response += link.Link.ToString();
-          response += "\n";
-        }
-        else
-        {
-          foundAll = false;
-        } 
-      }
-      if (foundAll)
-      {
-        await RespondAsync(response);
+        await RespondAsync("Important links not found!!");
       }
       else
       {
-        await RespondAsync("Important links are not found!!");
+        foreach( ImportantLink link in links)
+        {
+          response += order++ + ". " + link.Description.ToString() + "{" + link.ImportantLinkId + "}" + " - " + link.Link.ToString();
+          response += "\n";
+        }        
       }
+      await RespondAsync(response); 
+    }
+  
+    [SlashCommand("importantlink-delete", "Delete link")]
+    public async Task ImportantLinkDelete(int Id)
+    {
+      ImportantLink thisLink = await _db.ImportantLinks.FirstOrDefaultAsync(find => find.ImportantLinkId == Id);
+
+      if (thisLink == null)
+      {
+        await RespondAsync("Link does not exist, check the link 'Id'");
+      }
+
+      _db.ImportantLinks.Remove(thisLink);
+      _db.SaveChanges();
+
+      await RespondAsync($"Important link '{thisLink.Description}' has been deleted!");
     }
   }
-}
+}  

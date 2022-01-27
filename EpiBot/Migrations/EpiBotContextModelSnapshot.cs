@@ -50,7 +50,6 @@ namespace Epibot.Migrations
 
                     b.ToTable("ImportantLinks");
                 });
-
             modelBuilder.Entity("EpiBot.Models.LoginReminderClient", b =>
                 {
                     b.Property<int>("LoginReminderClientId")
