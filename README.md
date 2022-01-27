@@ -124,10 +124,13 @@ Slash commands are performed by entering the `/` character into the message fiel
 > Randomly assigns pairs from a list of names. Requires parameter list-of-names, which should be given as a space-separated list of names to be paired. If an odd number of names are given, the first "pair" will be assigned an extra name. Once used, the response contains a button which can be used to reshuffle pairs from among the same set.
 
 #### /login-reminders
-> Using this command while not currently registered for login/logout reminders will register the user to receive the reminders. Using this command while currently registered will un-register the user. Reminders are sent at ~07:45AM (to log in to Epicenter) and ~04:45PM (to log out from Epicenter).
+> Using this command while not currently registered for login/logout reminders will register the user to receive the reminders. Using this command while currently registered will un-register the user. Reminders are sent by DM to registered users at ~07:45AM (to log in to Epicenter) and ~04:45PM (to log out from Epicenter).
 
 #### /stackoverflow question sort
 > Searches stackoverflow.com for a provided question and displays the top five results. Requires parameter question which is the question to search for. Optionally accepts parameter sort, which has two options: sort by recent activity, or sort by most votes.
+
+#### /pet-notifications
+> Using this command while not currently registered for pet notifications will register the user to receive notifications. Using this command while currently registered will un-register the user. Sends a DM notification to registered users each time a message containing an image is sent to a particular channel.
 
 --------------------
 
