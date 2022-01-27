@@ -42,12 +42,11 @@ namespace EpiBot.Modules
       bool foundAll = true;
       foreach (ImportantLink link in links)
       {
-        Console.WriteLine(link);
         if (link != null)
         {
-          response += link.Description.ToString();
-          response += " - ";
-          response += link.Link.ToString();
+          response += link.Description.ToString() + " - " + link.Link.ToString();
+          // response += " - ";
+          // response += link.Link.ToString();
           response += "\n";
         }
         else
