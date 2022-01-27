@@ -8,6 +8,7 @@ namespace EpiBot.Models
     public virtual DbSet<Byline> Bylines { get; set; }
     public virtual DbSet<LoginReminderClient> LoginReminderClients { get; set; }
     
+    public virtual DbSet<PetNotificationClient> PetNotificationClients { get; set; }
     public EpiBotContext(DbContextOptions options) : base(options) { }
   }
 }

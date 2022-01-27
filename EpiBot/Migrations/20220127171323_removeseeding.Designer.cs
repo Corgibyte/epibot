@@ -3,14 +3,16 @@ using System;
 using EpiBot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Epibot.Migrations
 {
     [DbContext(typeof(EpiBotContext))]
-    partial class EpiBotContextModelSnapshot : ModelSnapshot
+    [Migration("20220127171323_removeseeding")]
+    partial class removeseeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +52,7 @@ namespace Epibot.Migrations
 
                     b.ToTable("ImportantLinks");
                 });
+
             modelBuilder.Entity("EpiBot.Models.LoginReminderClient", b =>
                 {
                     b.Property<int>("LoginReminderClientId")
@@ -68,20 +71,6 @@ namespace Epibot.Migrations
                     b.HasKey("LoginReminderClientId");
 
                     b.ToTable("LoginReminderClients");
-                });
-
-            modelBuilder.Entity("EpiBot.Models.PetNotificationClient", b =>
-                {
-                    b.Property<int>("PetNotificationClientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<ulong>("UserId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.HasKey("PetNotificationClientId");
-
-                    b.ToTable("PetNotificationClients");
                 });
 #pragma warning restore 612, 618
         }

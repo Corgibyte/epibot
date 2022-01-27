@@ -1,9 +1,13 @@
+using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
+using EpiBot.Models;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EpiBot.Services
 {
@@ -46,6 +50,7 @@ namespace EpiBot.Services
       var context = new SocketCommandContext(_discord, msg);
       int argPos = 0;
       string prefix = "!";
+      ulong petChannelId = 935182722815647775;
       if (msg.HasStringPrefix(prefix, ref argPos) || msg.HasMentionPrefix(_discord.CurrentUser, ref argPos))
       {
         var result = await _commands.ExecuteAsync(context, argPos, _provider);
@@ -53,6 +58,18 @@ namespace EpiBot.Services
         if (!result.IsSuccess)
         {
           await context.Channel.SendMessageAsync(result.ToString());
+        }
+      }
+      else if (msg.Channel.Id == petChannelId && HasPhoto(msg))
+      {
+        EpiBotContext db = _provider.GetRequiredService<EpiBotContext>();
+        //get dbset for PetNotificationClients from db
+        //foreach loop over each user, send message to user
+        foreach (PetNotificationClient client in db.PetNotificationClients)
+        {
+          IUser user = await _discord.GetUserAsync(client.UserId);
+          IDMChannel channel = await user.CreateDMChannelAsync();
+          await channel.SendMessageAsync("New Pet Alert!");
         }
       }
     }
@@ -72,6 +89,23 @@ namespace EpiBot.Services
         {
           await arg.GetOriginalResponseAsync().ContinueWith(async (msg) => await msg.Result.DeleteAsync());
         }
+      }
+    }
+
+    private bool HasPhoto(SocketUserMessage msg)
+    {
+      if (msg.Attachments.Count == 0)
+      {
+        return false;
+      }
+      else
+      {
+        var attachments = msg.Attachments.Where(attachment => 
+          attachment.Filename.EndsWith(".jpg") ||
+          attachment.Filename.EndsWith(".jpeg") ||
+          attachment.Filename.EndsWith(".png") ||
+          attachment.Filename.EndsWith(".gif"));
+        return attachments.Count() > 0;
       }
     }
   }
