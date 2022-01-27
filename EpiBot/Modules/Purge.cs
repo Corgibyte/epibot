@@ -12,7 +12,7 @@ namespace EpiBot.Modules
 {
   public class PurgeModule : InteractionModuleBase<SocketInteractionContext>
   {
-    [SlashCommand("purge", "Delete massages from the most recent based on number given")]
+    [SlashCommand("purge", "Delete messages from the most recent based on number given")]
     public async Task Purge(int number)
     {
       if ( number == 0)
