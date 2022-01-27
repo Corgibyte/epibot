@@ -64,8 +64,8 @@ namespace EpiBot.Services
       bool correctDay = !(DateTime.Now.DayOfWeek == DayOfWeek.Friday || DateTime.Now.DayOfWeek == DayOfWeek.Saturday || DateTime.Now.DayOfWeek == DayOfWeek.Sunday);
       if (correctDay)
       {
-        bool pmTest = DateTime.Now.Hour == 19;
-        pmTest = pmTest && DateTime.Now.Minute >= 55 && DateTime.Now.Minute < 59;
+        bool pmTest = DateTime.Now.Hour == 16;
+        pmTest = pmTest && DateTime.Now.Minute >= 45 && DateTime.Now.Minute < 59;
         if (pmTest)
         {
           foreach (LoginReminderClient client in _db.LoginReminderClients)
