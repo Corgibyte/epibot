@@ -38,6 +38,7 @@ namespace EpiBot
       var provider = services.BuildServiceProvider();
       provider.GetRequiredService<CommandHandler>();
       provider.GetRequiredService<LoggingService>();
+      provider.GetRequiredService<ReminderService>();
       await provider.GetRequiredService<StartupService>().StartAsync();
       await Task.Delay(-1);
     }
@@ -60,6 +61,7 @@ namespace EpiBot
       .AddSingleton<CommandHandler>()         // Add the command handler to the collection
       .AddSingleton<StartupService>()         // Add startupservice to the collection
       .AddSingleton<LoggingService>()         // Add loggingservice to the collection
+      .AddSingleton<ReminderService>()
       .AddSingleton<Random>()                 // Add random to the collection
       .AddSingleton(Configuration);           // Add the configuration to the collection
     }

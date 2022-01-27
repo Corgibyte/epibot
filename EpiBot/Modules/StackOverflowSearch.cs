@@ -10,10 +10,17 @@ namespace EpiBot.Modules
   public class StackOverflowSearch : InteractionModuleBase<SocketInteractionContext>
   {
     [SlashCommand("stackoverflow", "Search for a question on Stackoverflow.")]
-    public async Task Search(string question)
+    public async Task Search
+    (
+      [Summary("question", "Question / phrase to search for.")]
+      string question, 
+      [Summary("sort", "Sort method for results.")]
+      [Choice("By recent activity.", "activity"), Choice("By most votes.", "votes")]
+      string sort = "activity"
+    )
     {
       RestClient client = new RestClient("https://api.stackexchange.com/2.3/");
-      RestRequest request = new RestRequest($"search?page=1&pagesize=5&order=desc&intitle={question}&site=stackoverflow", Method.Get);
+      RestRequest request = new RestRequest($"search?page=1&pagesize=5&order=desc&sort={sort}&intitle={question}&site=stackoverflow", Method.Get);
       RestResponse response = await client.ExecuteGetAsync(request);
       await RespondAsync(
         text: $"Here are some stackoverflow results similar to \"{question}\":",
@@ -23,7 +30,6 @@ namespace EpiBot.Modules
     private Discord.Embed ParseToEmbed(string content)
     {
       JObject parsed = JsonConvert.DeserializeObject<JObject>(content);
-      Console.WriteLine(parsed.ToString());
       var embed = new Discord.EmbedBuilder();
       if (parsed["items"].HasValues)
       {

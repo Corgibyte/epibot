@@ -3,14 +3,16 @@ using System;
 using EpiBot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Epibot.Migrations
 {
     [DbContext(typeof(EpiBotContext))]
-    partial class EpiBotContextModelSnapshot : ModelSnapshot
+    [Migration("20220127041301_RemoveReminderSeeding")]
+    partial class RemoveReminderSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,6 @@ namespace Epibot.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EpiBot.Models.ImportantLink", b =>
-                {
-                    b.Property<int>("ImportantLinkId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("ImportantLinkId");
-
-                    b.ToTable("ImportantLinks");
-
             modelBuilder.Entity("EpiBot.Models.LoginReminderClient", b =>
                 {
                     b.Property<int>("LoginReminderClientId")
@@ -82,7 +68,6 @@ namespace Epibot.Migrations
                     b.HasKey("LoginReminderClientId");
 
                     b.ToTable("LoginReminderClients");
-
                 });
 #pragma warning restore 612, 618
         }

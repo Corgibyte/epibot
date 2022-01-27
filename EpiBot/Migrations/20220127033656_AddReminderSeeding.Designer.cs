@@ -3,14 +3,16 @@ using System;
 using EpiBot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Epibot.Migrations
 {
     [DbContext(typeof(EpiBotContext))]
-    partial class EpiBotContextModelSnapshot : ModelSnapshot
+    [Migration("20220127033656_AddReminderSeeding")]
+    partial class AddReminderSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,6 @@ namespace Epibot.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EpiBot.Models.ImportantLink", b =>
-                {
-                    b.Property<int>("ImportantLinkId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("ImportantLinkId");
-
-                    b.ToTable("ImportantLinks");
-
             modelBuilder.Entity("EpiBot.Models.LoginReminderClient", b =>
                 {
                     b.Property<int>("LoginReminderClientId")
@@ -83,6 +69,14 @@ namespace Epibot.Migrations
 
                     b.ToTable("LoginReminderClients");
 
+                    b.HasData(
+                        new
+                        {
+                            LoginReminderClientId = 1,
+                            LastAMReminder = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            LastPMReminder = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            UserId = 184137473578893312ul
+                        });
                 });
 #pragma warning restore 612, 618
         }
