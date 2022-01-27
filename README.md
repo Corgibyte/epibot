@@ -126,7 +126,7 @@ Slash commands are performed by entering the `/` character into the message fiel
 #### /login-reminders
 > Using this command while not currently registered for login/logout reminders will register the user to receive the reminders. Using this command while currently registered will un-register the user. Reminders are sent at ~07:45AM (to log in to Epicenter) and ~04:45PM (to log out from Epicenter).
 
-#### /stack-overflow question sort
+#### /stackoverflow question sort
 > Searches stackoverflow.com for a provided question and displays the top five results. Requires parameter question which is the question to search for. Optionally accepts parameter sort, which has two options: sort by recent activity, or sort by most votes.
 
 --------------------
