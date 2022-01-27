@@ -14,7 +14,7 @@ A [Discord](https://discord.com) bot that provides various functionality to assi
 
 ### Description
 
-This is a Discord bot utilizing the (Discord.NET)[https://discordnet.dev/index.html] library. It provides a variety of functions to assist Epicodus students and instructors. Full feature list below.
+This is a Discord bot utilizing the [Discord.NET](https://discordnet.dev/index.html) library. It provides a variety of functions to assist Epicodus students and instructors. Full feature list below.
 
 ---
 
@@ -86,7 +86,54 @@ Slash commands are performed by entering the `/` character into the message fiel
 
 ## Commands
 
-TODO
+### Text Commands
+
+#### !help
+> Displays a summary of all available commands and their parameters.
+
+### Slash Commands
+
+#### /byline-register name email
+> Registers a github byline in the database for later retrieval using /byline-generate. Requires two parameters, name and email, which should match the name and email used for github co-author attribution.
+
+#### /byline-generate name1 name2 name3 name4
+> Retrieves a registered byline from the database. Requires name1, optionally accepts name2, name3, name4. Uses a "fuzzy search" to select the name(s) from among those registered in the database.
+
+#### /codewars user-name
+> Retrived information about a CodeWars user from the CodeWars API. Requires user-name parameter, which should match the desired CodeWars user name.
+
+#### /importantlink-add description link
+> Registers an important link in the database for later retrieval using /importantlink-view. Requires two parameters: description and link.
+
+#### /importantlink-view
+> Retrieves and displays all important links from the database.
+
+#### /importantlink-delete Id
+> Deletes a link. Requires one parameter: Id.
+
+#### /userinfo user
+> Provides information about a user. With no parameter given it will return information about the requesting user. With optional user parameter given, will return information about the indicated user.
+
+#### /serverinfo
+> Returns information about the server.
+
+#### /meme subreddit
+> Displays a meme. Accepts an optional parameter subreddit, which will determine which subreddit the meme is retrieved from.
+
+#### /purge number
+> Deletes messages from the channel. Requires parameter number, which indicates the number of messages to be deleted.
+
+#### /pairs list-of-names
+> Randomly assigns pairs from a list of names. Requires parameter list-of-names, which should be given as a space-separated list of names to be paired. If an odd number of names are given, the first "pair" will be assigned an extra name. Once used, the response contains a button which can be used to reshuffle pairs from among the same set.
+
+#### /login-reminders
+> Using this command while not currently registered for login/logout reminders will register the user to receive the reminders. Using this command while currently registered will un-register the user. Reminders are sent by DM to registered users at ~07:45AM (to log in to Epicenter) and ~04:45PM (to log out from Epicenter).
+
+#### /stackoverflow question sort
+> Searches stackoverflow.com for a provided question and displays the top five results. Requires parameter question which is the question to search for. Optionally accepts parameter sort, which has two options: sort by recent activity, or sort by most votes.
+
+#### /pet-notifications
+> Using this command while not currently registered for pet notifications will register the user to receive notifications. Using this command while currently registered will un-register the user. Sends a DM notification to registered users each time a message containing an image is sent to a particular channel.
 
 --------------------
 
