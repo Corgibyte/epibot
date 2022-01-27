@@ -14,7 +14,7 @@ A [Discord](https://discord.com) bot that provides various functionality to assi
 
 ### Description
 
-This is a Discord bot utilizing the (Discord.NET)[https://discordnet.dev/index.html] library. It provides a variety of functions to assist Epicodus students and instructors. Full feature list below.
+This is a Discord bot utilizing the [Discord.NET](https://discordnet.dev/index.html) library. It provides a variety of functions to assist Epicodus students and instructors. Full feature list below.
 
 ---
 
