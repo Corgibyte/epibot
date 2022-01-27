@@ -20,7 +20,9 @@ namespace EpiBot.Modules
     }
 
     [SlashCommand("pairs", "Make random pairs from a list of space-separated names")]
-    public async Task Pairs(string listOfNames)
+    public async Task Pairs(
+      [Summary("listOfNames", "A list of space-separated names.")]
+      string listOfNames)
     {
       var button = new Discord.ComponentBuilder()
         .WithButton("Repeat Shuffle", "shuffle");
