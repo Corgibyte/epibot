@@ -19,6 +19,7 @@ namespace EpiBot.Services
     {
       _discord = discord;
       _db = services.GetRequiredService<EpiBotContext>();
+      #pragma warning disable 4014
       StartAsync();
     }
 
