@@ -1,6 +1,6 @@
 ## EpiBot Discord Bot
 
-By Kate Kiatsiri, Aaron Minnick, Jeff Terrell, Colt Thatcher, and Hannah Young
+By Kate Kiatsiri, Aaron Minnick, Anna Pittman, Jeff Terrell, Colt Thatcher, and Hannah Young
 
 A [Discord](https://discord.com) bot that provides various functionality to assist [Epicodus](https://www.epicodus.com) students and instructors.
 
@@ -96,4 +96,4 @@ TODO
 
 ### License
 
-[Hippocratic License 3.0](https://github.com/Corgibyte/epibot/blob/main/LICENSE.md), Copyright 2022 Kate Kiatsiri, Aaron Minnick, Jeff Terrell, Colt Thatcher, and Hannah Young.
+[Hippocratic License 3.0](https://github.com/Corgibyte/epibot/blob/main/LICENSE.md), Copyright 2022 Kate Kiatsiri, Aaron Minnick, Anna Pittman, Jeff Terrell, Colt Thatcher, and Hannah Young.
