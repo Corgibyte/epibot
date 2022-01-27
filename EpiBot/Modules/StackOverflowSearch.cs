@@ -15,7 +15,7 @@ namespace EpiBot.Modules
       [Summary("question", "Question / phrase to search for.")]
       string question, 
       [Summary("sort", "Sort method for results.")]
-      [Choice("activity", "activity"), Choice("votes", "votes")]
+      [Choice("By recent activity.", "activity"), Choice("By most votes.", "votes")]
       string sort = "activity"
     )
     {
