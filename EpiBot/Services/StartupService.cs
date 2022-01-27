@@ -57,9 +57,9 @@ namespace EpiBot.Services
     private async Task ReadyAsync()
     {
       //testing: setting command on specific guild - below arg may be got programatically?
-      // await _interactions.RegisterCommandsToGuildAsync(935181165755764826);
+      await _interactions.RegisterCommandsToGuildAsync(935181165755764826);
       //deployment: use below to set command globally (anywhere the bot is used)
-      await _interactions.RegisterCommandsGloballyAsync(true);
+      // await _interactions.RegisterCommandsGloballyAsync(true);
     }
   }
 }
