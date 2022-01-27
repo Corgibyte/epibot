@@ -30,7 +30,6 @@ namespace EpiBot.Modules
     private Discord.Embed ParseToEmbed(string content)
     {
       JObject parsed = JsonConvert.DeserializeObject<JObject>(content);
-      Console.WriteLine(parsed.ToString());
       var embed = new Discord.EmbedBuilder();
       if (parsed["items"].HasValues)
       {
